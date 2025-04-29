@@ -1,0 +1,29 @@
+[project]
+name = "code-scraper"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "👻👽🤖🧙‍♂️🫠",email = "sprain6628@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "typer[all] (>=0.15.3,<0.16.0)",
+    "pyyaml (>=6.0.2,<7.0.0)",
+    "pydantic (>=2.11.3,<3.0.0)",
+    "pathspec (>=0.12)"
+]
+
+[tool.poetry]
+packages = [{include = "code_scraper", from = "src"}]
+
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.11.7"
+black = "^25.1.0"
+mypy = "^1.15.0"
+pytest = "^8.3.5"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
