@@ -1,0 +1,32 @@
+# path.yaml (예시 파일)
+
+# --- root ---
+# 스크랩 대상 프로젝트의 루트 폴더 경로를 지정하세요.
+# 중요: 이 경로는 path.yaml 파일이 있는 위치를 기준으로 한 상대 경로 또는 절대 경로여야 합니다.
+#      실제로 존재하는 디렉토리여야 합니다!
+
+# 예시 1: path.yaml 파일과 같은 부모 폴더 안에 있는 다른 프로젝트 (상대 경로)
+# root: ../my-cool-project
+
+# 예시 2: 사용자의 홈 디렉토리 아래 특정 프로젝트 (절대 경로 - macOS/Linux)
+# root: /Users/your_username/code/another-project
+
+# 예시 3: 특정 드라이브 아래 프로젝트 (절대 경로 - Windows)
+root: C:/webstorm_work/charts3
+
+# --- codes ---
+# 위 'root' 디렉토리 기준으로 내용을 취합할 파일들의 상대 경로 목록입니다.
+# 중요: 여기에 나열된 파일들은 'root' 폴더 안에 실제로 존재해야 합니다!
+#      YAML 리스트 형식이므로 각 항목 앞에 하이픈(-)과 공백을 붙여야 합니다.
+codes:
+  - assets/css/main.css
+  - composables/useBasisTransformation.ts
+  - config/constants.ts
+  - lib/katex/renderer.ts
+  - lib/p5/sketchManager.ts
+  - pages/primal_and_dual_basis_linear_transformation/index.vue
+  - pages/index.vue
+  - pages/shannon_sampling_theorem.vue
+  - utils/stringUtils.ts
+  - nuxt.config.ts
+  - package.json

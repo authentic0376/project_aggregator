@@ -1,29 +1,41 @@
 [project]
-name = "code-scraper"
+name = "project_aggregator"
 version = "0.1.0"
 description = ""
 authors = [
-    {name = "👻👽🤖🧙‍♂️🫠",email = "sprain6628@gmail.com"}
+    {name = "👻👽🤖🧙‍♂️🫠", email = "sprain6628@gmail.com"}
 ]
 readme = "README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.12" # 파이썬 3.12 이상 필요
 dependencies = [
-    "typer[all] (>=0.15.3,<0.16.0)",
-    "pyyaml (>=6.0.2,<7.0.0)",
-    "pydantic (>=2.11.3,<3.0.0)",
-    "pathspec (>=0.12)"
+    # 의존성 버전 명시 (Poetry가 설치한 버전과 유사하게)
+    "typer[all]>=0.9.0,<1.0.0", # 예시: Typer의 적절한 버전 범위 지정
+    "pyyaml>=6.0.1,<7.0.0",
+    "pydantic>=2.5.0,<3.0.0",  # 버전 범위는 실제 설치된 것에 맞추는 것이 좋음
+    "pathspec>=0.12.1,<0.13.0"
 ]
 
 [tool.poetry]
-packages = [{include = "code_scraper", from = "src"}]
+# 'packages' 설정은 src 레이아웃을 사용할 때 Poetry가 패키지를 찾는 방법을 명시합니다.
+# 이 설정이 있으면 Poetry는 'src' 디렉토리 안에서 'project_aggregator' 패키지를 찾습니다.
+packages = [{include = "project_aggregator", from = "src"}]
+
+# --- 추가된 부분 시작 ---
+[tool.poetry.scripts]
+# 'scrape'는 터미널에서 사용할 명령어 이름입니다.
+# 'project_aggregator.main:app'은 실행할 모듈 경로와 그 안의 Typer 앱 객체를 의미합니다.
+scrape = "project_aggregator.main:app"
+# --- 추가된 부분 끝 ---
 
 
 [tool.poetry.group.dev.dependencies]
-ruff = "^0.11.7"
-black = "^25.1.0"
-mypy = "^1.15.0"
-pytest = "^8.3.5"
+# 개발 의존성 버전 명시 (Poetry가 설치한 버전과 유사하게)
+ruff = "^0.4.0"  # Ruff 버전 업데이트 (최신 버전 확인 권장)
+black = "^24.4.0" # Black 버전 업데이트 (최신 버전 확인 권장)
+mypy = "^1.10.0"  # Mypy 버전 업데이트 (최신 버전 확인 권장)
+pytest = "^8.2.0" # Pytest 버전 업데이트 (최신 버전 확인 권장)
 
 [build-system]
-requires = ["poetry-core>=2.0.0,<3.0.0"]
+# build-system 부분은 보통 그대로 둡니다.
+requires = ["poetry-core>=1.0.0"] # 버전 요구사항 약간 완화 (호환성 위함)
 build-backend = "poetry.core.masonry.api"
