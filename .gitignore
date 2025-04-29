@@ -2,3 +2,4 @@
 .venv
 output.txt
 path.yaml
+path--*.yaml
