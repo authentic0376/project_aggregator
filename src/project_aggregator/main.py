@@ -8,6 +8,7 @@ from platformdirs import user_downloads_dir # 다운로드 폴더 경로용
 import subprocess # 편집기 실행 대안 (typer.launch가 안될 경우)
 from typing import Optional
 
+
 # logic 모듈의 함수들을 가져옵니다.
 from .logic import (
     load_combined_ignore_spec,
