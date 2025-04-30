@@ -1,39 +1,44 @@
-[project]
-name = "project_aggregator"
-version = "0.1.0"
-description = ""
-authors = [
-    { name = "👻👽🤖🧙‍♂️🫠", email = "sprain6628@gmail.com" }
-]
-readme = "README.md"
-requires-python = ">=3.12" # 파이썬 3.12 이상 필요
-dependencies = [
-    # 의존성 버전 명시 (Poetry가 설치한 버전과 유사하게)
-    "typer[all]>=0.9.0,<1.0.0", # 예시: Typer의 적절한 버전 범위 지정
-    "pyyaml>=6.0.1,<7.0.0",
-    "pydantic>=2.5.0,<3.0.0", # 버전 범위는 실제 설치된 것에 맞추는 것이 좋음
-    "pathspec>=0.12.1,<0.13.0",
-    "platformdirs>=4.0.0,<5.0.0", # 다운로드 폴더 경로 찾기 위해 추가
-    "coloredlogs>=15.0,<16.0.0", # 컬러 로깅 지원
-]
-
 [tool.poetry]
-# 'packages' 설정은 src 레이아웃을 사용할 때 Poetry가 패키지를 찾는 방법을 명시합니다.
-# 이 설정이 있으면 Poetry는 'src' 디렉토리 안에서 'project_aggregator' 패키지를 찾습니다.
+# --- [project] 섹션의 정보를 여기로 옮겨옵니다 ---
+name = "project-aggregator" # PEP 621 권장사항에 따라 하이픈(-) 사용 권장 (Poetry는 언더스코어도 허용)
+version = "0.1.1"
+description = "폴더 구조와 코드들을 하나의 txt 파일에 작성해주는 도구"
+authors = ["👻👽🤖🧙‍♂️🫠 <sprain6628@gmail.com>"] # Poetry는 이 형식을 선호합니다
+readme = "README.md"
+license = "MIT"  # <<< 라이선스 추가하는 것이 좋습니다 (예: MIT, Apache-2.0 등)
+homepage = "https://github.com/authentic0376/project_aggregator" # <<< 프로젝트 홈페이지 (GitHub 주소 등) 추가 권장
+repository = "https://github.com/authentic0376/project_aggregator" # <<< 저장소 주소 추가 권장
+keywords = ["cli", "code-aggregator", "utility", "project-structure"] # <<< 키워드 추가 권장 (PyPI 검색용)
+
+# 파이썬 버전 요구사항은 [tool.poetry.dependencies] 아래로 이동
+# requires-python = ">=3.12" <<< 이 줄은 아래 dependencies 섹션의 python 키로 대체됩니다.
+
+# 'packages' 설정은 그대로 유지 (src 레이아웃 사용 시 중요)
 packages = [{ include = "project_aggregator", from = "src" }]
 
-# --- 추가된 부분 시작 ---
+# --- 의존성 ---
+[tool.poetry.dependencies]
+python = ">=3.12" # <<< requires-python 대신 여기에 명시
+typer = { version = ">=0.9.0,<1.0.0", extras = ["all"] } # extras는 이렇게 지정
+pathspec = ">=0.12.1,<0.13.0"
+platformdirs = ">=4.0.0,<5.0.0"
+coloredlogs = ">=15.0,<16.0.0"
+
+# --- 스크립트 (실행 명령어 정의) ---
+# 이 부분은 원래 위치 그대로 좋습니다.
 [tool.poetry.scripts]
 pagr = "project_aggregator.main:app"
 
+# --- 개발 의존성 ---
+# 이 부분도 원래 위치 그대로 좋습니다.
 [tool.poetry.group.dev.dependencies]
-# 개발 의존성 버전 명시 (Poetry가 설치한 버전과 유사하게)
-ruff = "^0.4.0"  # Ruff 버전 업데이트 (최신 버전 확인 권장)
-black = "^24.4.0" # Black 버전 업데이트 (최신 버전 확인 권장)
-mypy = "^1.10.0"  # Mypy 버전 업데이트 (최신 버전 확인 권장)
-pytest = "^8.2.0" # Pytest 버전 업데이트 (최신 버전 확인 권장)
+ruff = "^0.4.0"
+black = "^24.4.0"
+mypy = "^1.10.0"
+pytest = "^8.2.0"
 
+# --- 빌드 시스템 ---
+# 이 부분은 Poetry 사용에 필수적이므로 반드시 유지해야 합니다.
 [build-system]
-# build-system 부분은 보통 그대로 둡니다.
-requires = ["poetry-core>=1.0.0"] # 버전 요구사항 약간 완화 (호환성 위함)
+requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"

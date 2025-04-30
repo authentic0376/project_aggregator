@@ -1,3 +1,11 @@
 .idea
 .venv
 .pagrignore
+dist/
+build/
+*.egg-info/
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+*.log
+*.lock
