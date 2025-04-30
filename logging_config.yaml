@@ -1,0 +1,31 @@
+# src/project_aggregator/logging_config.yaml
+version: 1
+disable_existing_loggers: false
+
+formatters:
+  colored:
+    (): coloredlogs.ColoredFormatter # coloredlogs 포매터 사용
+    format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    datefmt: '%Y-%m-%d %H:%M:%S'
+  simple:
+    format: '%(asctime)s - %(levelname)s - %(message)s'
+
+handlers:
+  console:
+    class: logging.StreamHandler
+    level: DEBUG # 콘솔에는 DEBUG 레벨 이상 출력
+    formatter: colored # 컬러 포매터 적용
+    stream: ext://sys.stderr # 에러 스트림으로 출력 (표준 출력으로 변경 가능)
+
+loggers:
+  project_aggregator: # 우리 프로젝트의 로거
+    level: DEBUG # 이 로거는 DEBUG 레벨부터 처리
+    handlers: [console] # 콘솔 핸들러 사용
+    propagate: no # 루트 로거로 전파하지 않음 (중복 출력 방지)
+  # 다른 라이브러리 로거들의 레벨을 조정할 수 있음
+  # 예: urllib3:
+  #   level: INFO
+
+root: # 루트 로거 설정 (모든 로거의 기본값)
+  level: WARNING # 기본적으로 WARNING 레벨 이상만 처리
+  handlers: [console] # 루트 로거도 콘솔 핸들러 사용 (다른 라이브러리 로그 등)
