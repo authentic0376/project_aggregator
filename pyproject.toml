@@ -12,7 +12,8 @@ dependencies = [
     "typer[all]>=0.9.0,<1.0.0", # 예시: Typer의 적절한 버전 범위 지정
     "pyyaml>=6.0.1,<7.0.0",
     "pydantic>=2.5.0,<3.0.0",  # 버전 범위는 실제 설치된 것에 맞추는 것이 좋음
-    "pathspec>=0.12.1,<0.13.0"
+     "pathspec>=0.12.1,<0.13.0",
+    "platformdirs>=4.0.0,<5.0.0" # 다운로드 폴더 경로 찾기 위해 추가
 ]
 
 [tool.poetry]
@@ -22,11 +23,7 @@ packages = [{include = "project_aggregator", from = "src"}]
 
 # --- 추가된 부분 시작 ---
 [tool.poetry.scripts]
-# 'scrape'는 터미널에서 사용할 명령어 이름입니다.
-# 'project_aggregator.main:app'은 실행할 모듈 경로와 그 안의 Typer 앱 객체를 의미합니다.
-scrape = "project_aggregator.main:app"
-# --- 추가된 부분 끝 ---
-
+pagr = "project_aggregator.main:app"
 
 [tool.poetry.group.dev.dependencies]
 # 개발 의존성 버전 명시 (Poetry가 설치한 버전과 유사하게)
