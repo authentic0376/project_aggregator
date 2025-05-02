@@ -43,14 +43,49 @@
 
 프로젝트 디렉토리 구조와 필터링된 파일 내용을 취합하여 하나의 파일로 만듭니다.
 
+**기본 사용법:**
+
+*   **루트 디렉토리**: 취합을 시작할 최상위 디렉토리입니다. `--root <경로>` 옵션으로 지정하며, 생략 시 현재 작업 디렉토리가 사용됩니다.
+*   **출력 파일**: 결과가 저장될 파일입니다. `--output <파일경로>` 옵션으로 지정하며, 생략 시 기본적으로 사용자 Downloads 폴더의 `pagr_output.txt`에 저장됩니다.
+
 ```bash
-# 1. 현재 디렉토리를 대상으로 실행 (결과는 기본적으로 Downloads 폴더의 pagr_output.txt 에 저장)
+# 1. 현재 디렉토리의 모든 파일(무시 규칙 제외) 취합
+# 결과는 기본 Downloads 폴더의 pagr_output.txt 에 저장됩니다.
 pagr run
 
-# 2. 특정 프로젝트 경로를 지정하고 결과를 현재 디렉토리의 output.md 에 저장
-pagr run /path/to/your/project --output output.md
+# 2. 특정 디렉토리를 루트로 지정하고, 그 안의 모든 파일(무시 규칙 제외) 취합
+pagr run --root /path/to/your/project
 
-# 3. 도움말 보기
+# 3. 현재 디렉토리에서 취합하여 결과를 특정 파일로 저장
+pagr run --output my_project_bundle.txt
+
+# 4. 루트 지정과 출력 파일 지정을 동시에 사용
+pagr run --root /path/to/your/project --output /path/to/output/bundle.md
+```
+
+
+**특정 파일/디렉토리만 취합하기:**
+
+`--root, --output` 같은 옵션 외에 추가로 제공되는 인자들은 루트 디렉토리 내에서 취합할 대상을 명시적으로 지정하는 상대 경로 또는 Glob 패턴 (*, ** 등)입니다. 이 인자들이 주어지면, 지정된 패턴에 맞는 파일들만 (무시 규칙을 통과한 후) 코드 취합 대상이 됩니다.
+
+이 인자들이 주어지지 않으면, 루트 디렉토리 내의 모든 파일 (무시 규칙 제외)이 취합 대상이 됩니다 (위의 기본 사용법 예시처럼).
+```bash
+# 5. 현재 디렉토리(--root 생략)에서 'src' 폴더 전체와 최상위 '.py' 파일들만 취합
+pagr run src *.py
+
+# 6. 특정 루트 디렉토리 내에서 'app/main.py' 파일과 'lib' 폴더 내의 모든 파일만 취합
+pagr run --root /my/project app/main.py lib
+
+# 7. 특정 루트 내의 모든 파이썬 파일(`**/*.py`)과 `requirements.txt` 파일만 취합하여 특정 파일에 저장
+pagr run --root /my/project "**/*.py" requirements.txt --output python_files.txt
+# (참고: 쉘 환경에 따라 Glob 패턴에 따옴표가 필요할 수 있습니다)
+
+# 8. 현재 디렉토리에서 특정 패턴의 파일들만 취합하여 기본 출력 위치에 저장
+pagr run "docs/**/*.md" "examples/*.py"
+```
+**도움말:**
+```
+# run 명령어의 상세 도움말 보기 (모든 옵션 및 인자 설명 확인 가능)
 pagr run --help
 ```
 
