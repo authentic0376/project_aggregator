@@ -1,7 +1,7 @@
 [tool.poetry]
 # --- [project] 섹션의 정보를 여기로 옮겨옵니다 ---
 name = "project-aggregator" # PEP 621 권장사항에 따라 하이픈(-) 사용 권장 (Poetry는 언더스코어도 허용)
-version = "0.1.3"
+version = "0.2.0"
 description = "폴더 구조와 코드들을 하나의 txt 파일에 작성해주는 도구"
 authors = ["👻👽🤖🧙‍♂️🫠 <sprain6628@gmail.com>"] # Poetry는 이 형식을 선호합니다
 readme = "README.md"

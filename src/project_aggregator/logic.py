@@ -10,6 +10,36 @@ import logging  # 로깅 모듈 임포트
 logger = logging.getLogger(__name__)
 
 
+def load_patterns_from_file(root_dir: Path, pattern_filename: str) -> Optional[List[str]]:
+    """
+    지정된 패턴 파일을 읽어 주석과 빈 줄을 제외한 패턴 문자열 리스트로 반환합니다.
+    파일이 없거나 유효한 패턴이 없으면 None을 반환합니다.
+    """
+    pattern_path = root_dir / pattern_filename
+    logger.debug(f"Attempting to load patterns from file: {pattern_path}")
+
+    if not pattern_path.is_file():
+        logger.debug(f"Pattern file not found: {pattern_path}")
+        return None
+
+    try:
+        with open(pattern_path, 'r', encoding='utf-8') as f:
+            lines = f.readlines()
+
+        patterns = [line.strip() for line in lines if line.strip() and not line.strip().startswith('#')]
+
+        if not patterns:
+            logger.debug(f"Pattern file '{pattern_filename}' is empty or contains only comments/whitespace.")
+            return None
+
+        logger.debug(f"Loaded {len(patterns)} patterns from '{pattern_filename}': {patterns}")
+        return patterns
+
+    except Exception as e:
+        logger.warning(f"Could not read or parse {pattern_filename} at {pattern_path}: {e}", exc_info=True)
+        return None
+
+
 # --- parse_ignore_file 함수 ---
 def parse_ignore_file(root_dir: Path, ignore_filename: str) -> Optional[pathspec.PathSpec]:
     """
@@ -164,7 +194,7 @@ def generate_tree(root_dir: Path, combined_ignore_spec: pathspec.PathSpec) -> st
 
             except ValueError as ve:
                 logger.warning(f"Could not determine relative path for {item} against {root_dir}: {ve}. Skipping.",
-                               exc_info=True)
+                                 exc_info=True)
             except Exception as e:
                 logger.error(f"Error processing tree item {item}: {e}", exc_info=True)
 
@@ -176,7 +206,7 @@ def generate_tree(root_dir: Path, combined_ignore_spec: pathspec.PathSpec) -> st
             display_name = f"{item.name}{'/' if item.is_dir() else ''}"
             tree_lines.append(f"{prefix}{pointer}{display_name}")
             if item.is_dir():
-                extension = "│   " if pointer == "├── " else "   "
+                extension = "│   " if pointer == "├── " else "    "
                 _build_tree_recursive(item, prefix + extension)
 
     _build_tree_recursive(root_dir, "")
