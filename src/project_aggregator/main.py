@@ -30,7 +30,7 @@ try:
     from importlib.metadata import version
     __version__ = version("project_aggregator")
 except ImportError:
-    __version__ = "0.2.0"  # fallback
+    __version__ = "0.3.0"  # fallback
 
 # --- Typer 앱 생성 및 기본 설정 ---
 app = typer.Typer(
