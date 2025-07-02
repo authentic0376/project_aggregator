@@ -1,7 +1,7 @@
 [tool.poetry]
 # --- [project] 섹션의 정보를 여기로 옮겨옵니다 ---
 name = "project-aggregator" # PEP 621 권장사항에 따라 하이픈(-) 사용 권장 (Poetry는 언더스코어도 허용)
-version = "0.2.0"
+version = "0.3.0"
 description = "폴더 구조와 코드들을 하나의 txt 파일에 작성해주는 도구"
 authors = ["👻👽🤖🧙‍♂️🫠 <sprain6628@gmail.com>"] # Poetry는 이 형식을 선호합니다
 readme = "README.md"
@@ -18,7 +18,7 @@ packages = [{ include = "project_aggregator", from = "src" }]
 
 # --- 의존성 ---
 [tool.poetry.dependencies]
-python = ">=3.12" # <<< requires-python 대신 여기에 명시
+python = ">=3.13" # <<< requires-python 대신 여기에 명시
 typer = { version = ">=0.9.0,<1.0.0", extras = ["all"] } # extras는 이렇게 지정
 pathspec = ">=0.12.1,<0.13.0"
 platformdirs = ">=4.0.0,<5.0.0"
